@@ -1,0 +1,40 @@
+# Keep this repository scoped to the five application projects.
+/*
+!/.gitignore
+!/server-app/
+!/c-web/
+!/c-app/
+!/d-app/
+!/d-web/
+
+# Local configuration and credentials (keep checked-in examples).
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.p8
+*.jks
+*.keystore
+auth.json
+
+# Dependencies, generated output, and local tooling.
+node_modules/
+vendor/
+dist/
+.expo/
+.cache/
+.codex/
+.agents/
+*.log
+*.tsbuildinfo
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+/server-app/storage/app/**
+/server-app/storage/framework/**
+/server-app/storage/logs/**
+!/server-app/storage/**/.gitignore

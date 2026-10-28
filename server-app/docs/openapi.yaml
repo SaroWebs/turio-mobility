@@ -1,0 +1,246 @@
+openapi: 3.1.0
+info:
+  title: Turiya Mobility API
+  description: >
+    Public API for the Turiya Mobility platform (spec SKY-MRD-001).
+
+    Two surfaces coexist:
+
+      * **Legacy** (`/api/customer-app/*`, `/api/driver-app/*`): historical
+        response shapes consumed by the frozen mobile clients and customer-web.
+        Every JSON object response additionally carries a top-level `meta`
+        block (added by the `EnsureResponseMeta` middleware) but is otherwise
+        unchanged.
+      * **Versioned** (`/api/v1/*`): the strict contract documented here — a
+        uniform `{ success, data | error, meta }` envelope, money as integer
+        minor units, and ISO-8601 timestamps.
+
+    Money is ALWAYS expressed as integer minor units (paise for INR) plus an
+    ISO-4217 `currency`; never as a float. The `amount_display` string is a
+    convenience only — clients must compute from `amount_minor`.
+  version: "2026-07-01"
+servers:
+  - url: /api
+    description: Same-origin API root
+tags:
+  - name: Meta
+    description: Contract discovery
+  - name: Receipts
+    description: Booking receipts
+paths:
+  /v1/meta:
+    get:
+      tags: [Meta]
+      summary: Contract discovery
+      description: Public. Returns the active contract version and server time.
+      operationId: getMeta
+      security: []
+      responses:
+        "200":
+          description: Contract metadata
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SuccessEnvelope"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          contract_version:
+                            type: string
+                            example: "2026-07-01"
+                          server_time:
+                            type: string
+                            format: date-time
+  /v1/bookings/{booking}/receipt:
+    get:
+      tags: [Receipts]
+      summary: Fetch a ride booking receipt
+      description: >
+        Returns the receipt for a ride booking. Requires authentication; the
+        caller must be the booking's customer, its assigned driver, or an admin.
+      operationId: getBookingReceipt
+      parameters:
+        - name: booking
+          in: path
+          required: true
+          description: Ride booking id
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Receipt
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SuccessEnvelope"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: "#/components/schemas/Receipt"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+components:
+  securitySchemes:
+    sanctumToken:
+      type: http
+      scheme: bearer
+      description: Laravel Sanctum personal access token.
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      description: >
+        Client-generated key for exactly-once semantics on mutating requests
+        (SKY-MRD-001 invariant #1). A retry with the same key and identical body
+        replays the original response instead of repeating the side effect;
+        reusing a key with a different body is rejected with 422.
+      schema:
+        type: string
+        maxLength: 255
+    RequestId:
+      name: X-Request-Id
+      in: header
+      required: false
+      description: >
+        Optional caller-supplied correlation id (`[A-Za-z0-9._-]{1,128}`). If
+        omitted the server mints one; it is always echoed on the response and
+        appears in `meta.request_id`.
+      schema:
+        type: string
+  headers:
+    XRequestId:
+      description: The request/correlation id for this response (see meta.request_id).
+      schema:
+        type: string
+  schemas:
+    Meta:
+      type: object
+      required: [request_id, contract_version]
+      properties:
+        request_id:
+          type: string
+          nullable: true
+          example: req_9f1c2b3a-4d5e-6789-abcd-ef0123456789
+        contract_version:
+          type: string
+          example: "2026-07-01"
+    Money:
+      type: object
+      required: [amount_minor, currency, amount_display]
+      properties:
+        amount_minor:
+          type: integer
+          format: int64
+          description: Amount in integer minor units (paise for INR).
+          example: 45000
+        currency:
+          type: string
+          description: ISO-4217 currency code.
+          example: INR
+        amount_display:
+          type: string
+          description: Convenience major-unit rendering; do not compute from this.
+          example: "450.00"
+    SuccessEnvelope:
+      type: object
+      required: [success, data, meta]
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+        data:
+          description: Endpoint-specific payload.
+        meta:
+          $ref: "#/components/schemas/Meta"
+    ErrorEnvelope:
+      type: object
+      required: [success, error, meta]
+      properties:
+        success:
+          type: boolean
+          enum: [false]
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              description: Stable machine-readable error code.
+              example: not_found
+            message:
+              type: string
+              example: Resource not found.
+            fields:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+              description: Per-field validation messages (validation errors only).
+        meta:
+          $ref: "#/components/schemas/Meta"
+    Receipt:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+          example: ride
+        booking_number:
+          type: string
+          example: RIDE20260701AB12
+        status:
+          type: string
+          example: completed
+        payment_status:
+          type: string
+          example: paid
+        amount:
+          $ref: "#/components/schemas/Money"
+        refunded:
+          $ref: "#/components/schemas/Money"
+        issued_at:
+          type: string
+          format: date-time
+          nullable: true
+        travel_date:
+          type: string
+          format: date-time
+          nullable: true
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+  responses:
+    Unauthenticated:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    Forbidden:
+      description: Authenticated but not allowed to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+security:
+  - sanctumToken: []

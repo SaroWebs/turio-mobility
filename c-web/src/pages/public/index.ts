@@ -1,0 +1,7 @@
+export { HomePage } from './HomePage'
+export { ToursPage } from './ToursPage'
+export { RentalsPage } from './RentalsPage'
+export { DestinationsPage } from './DestinationsPage'
+export { DestinationDetailPage } from './DestinationDetailPage'
+export { TourDetailPage } from './TourDetailPage'
+export { RentalDetailPage } from './RentalDetailPage'

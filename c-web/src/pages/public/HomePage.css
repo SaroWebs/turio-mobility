@@ -1,0 +1,115 @@
+.tour-home { --tour-blue: #07499c; --tour-ink: #20272d; color: var(--tour-ink); background: #fff; }
+.tour-home h1, .tour-home h2, .tour-home h3, .tour-home p { margin: 0; }
+.tour-home h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 750; line-height: 1.2; letter-spacing: -.035em; }
+.tour-container { width: min(1120px, calc(100% - 80px)); margin-inline: auto; }
+.tour-section { padding-block: 76px; }
+.tour-search { display: grid; grid-template-columns: 1.5fr 1fr .7fr auto; align-items: center; gap: 10px; background: white; color: var(--tour-ink); padding: 15px; border-radius: 13px; box-shadow: 0 12px 40px #112c4020; text-align: left; }
+.tour-search label { display: flex; align-items: center; gap: 14px; padding: 8px 14px; min-width: 0; }
+.tour-search label + label { border-left: 1px solid #e9edf1; }
+.tour-search label span { min-width: 0; width: 100%; }
+.tour-search strong { display: block; font-size: 11px; font-weight: 600; margin-bottom: 5px; }
+.tour-search input { width: 100%; min-width: 0; border: 0; background: transparent; font-size: 12px; color: #58616b; padding: 0; min-height: 24px; }
+.tour-search button { width: 52px; height: 52px; display: grid; place-items: center; border: none; border-radius: 50%; color: #fff; background: var(--tour-blue); cursor: pointer; }
+.tour-search button span { display: none; }
+.tour-search button:hover { background: #063776; }
+.tour-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; text-align: center; padding-block: 80px; }
+.tour-benefit-icon { width: 70px; height: 70px; display: grid; place-items: center; margin: 0 auto 22px; color: #2864ad; background: #edf4ff; border-radius: 50% 45% 50% 35%; transform: rotate(-9deg); }
+.tour-benefit-icon .icon { width: 40px; height: 40px; }
+.tour-benefits article:nth-child(2) .tour-benefit-icon { color: #249b86; background: #e6f7ef; }
+.tour-benefits article:nth-child(3) .tour-benefit-icon { color: #71609d; background: #f0ecf9; }
+.tour-benefits h2 { font-size: 23px; letter-spacing: -.02em; }
+.tour-benefits p { font-size: 13px; line-height: 1.8; color: #606870; margin: 12px auto 0; max-width: 280px; }
+.tour-offers, .tour-popular { background: #edf3ff; }
+.tour-section-heading { text-align: center; margin-bottom: 36px; }
+.tour-section-heading p { color: #59616a; font-size: 14px; margin-top: 13px; line-height: 1.7; }
+.tour-escape-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tour-escape { position: relative; overflow: hidden; border-radius: 12px; height: 405px; background: #325567; isolation: isolate; }
+.tour-escape img, .tour-discover > img, .tour-banner > img, .tour-destination > img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: -2; transition: transform .3s; }
+.tour-escape::after, .tour-discover::after, .tour-destination::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(transparent 30%, #0c2635a6); }
+.tour-escape:hover img, .tour-destination:hover img { transform: scale(1.035); }
+.tour-escape > div { position: absolute; bottom: 30px; width: 100%; text-align: center; color: #fff; }
+.tour-escape h3 { font-size: 48px; font-weight: 750; letter-spacing: .02em; }
+.tour-escape p { letter-spacing: .35em; font-size: 16px; }
+.tour-escape span { display: inline-flex; align-items: center; gap: 8px; margin-top: 17px; padding: 10px 18px; background: #ffffff26; border: 1px solid #ffffff50; border-radius: 30px; font-size: 12px; backdrop-filter: blur(6px); }
+.tour-escape span .icon { width: 14px; height: 14px; }
+.tour-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 20px; }
+.tour-tabs button { border: 0; padding: 11px 16px; min-height: 44px; border-radius: 30px; background: transparent; color: #5d646a; font-size: 12px; cursor: pointer; }
+.tour-tabs button[aria-pressed=true] { background: #252e35; color: #fff; }
+.tour-feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.tour-attraction { background: #f6f7f9; border-radius: 12px; overflow: hidden; }
+.tour-attraction-image { position: relative; height: 245px; background: #dce6f0; }
+.tour-attraction-image > img { width: 100%; height: 100%; object-fit: cover; }
+.tour-attraction-image > span { position: absolute; top: 13px; right: 13px; background: #fffffff0; border-radius: 20px; display: flex; gap: 4px; padding: 4px 9px; font-size: 13px; }
+.tour-attraction-image .icon { width: 15px; color: #b77a16; }
+.tour-attraction-copy { padding: 18px; }
+.tour-attraction h3 { font-size: 17px; font-weight: 600; }
+.tour-attraction-copy p { display: flex; align-items: center; gap: 5px; margin-top: 9px; font-size: 12px; color: #626b72; }
+.tour-attraction-copy p .icon { width: 15px; height: 15px; }
+.tour-attraction-copy > div { margin-top: 22px; }
+.tour-attraction-copy strong { font-size: 24px; letter-spacing: -.04em; }
+.tour-attraction-copy del, .tour-attraction-copy small { font-size: 12px; color: #697179; margin-left: 7px; }
+.tour-discover { min-height: 375px; position: relative; isolation: isolate; overflow: hidden; border-radius: 12px; background: #34585c; color: #fff; }
+.tour-discover > div { position: absolute; bottom: 20px; left: 20px; right: 20px; }
+.tour-discover h3 { font-size: 25px; font-weight: 650; line-height: 1.2; }
+.tour-discover p { font-size: 12px; line-height: 1.6; margin-top: 12px; }
+.tour-discover span { display: flex; align-items: center; justify-content: space-between; background: #286cf5; padding: 13px 18px; border-radius: 25px; font-size: 12px; margin-top: 20px; }
+.tour-empty { grid-column: span 2; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; padding: 40px; text-align: center; border-radius: 12px; background: #f5f7fb; }
+.tour-empty h3 { font-size: 24px; font-weight: 650; }
+.tour-empty p { font-size: 14px; color: #626b72; }
+.tour-empty a { display: flex; gap: 8px; align-items: center; color: var(--tour-blue); font-size: 14px; }
+.tour-banner { position: relative; isolation: isolate; overflow: hidden; border-radius: 16px; margin-top: 76px; min-height: 350px; display: flex; align-items: center; color: white; background: #274d54; }
+.tour-banner::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #09232ad9, #102d3750 65%, transparent); }
+.tour-banner > div { padding: 48px; }
+.tour-banner h2 { font-size: clamp(28px, 3.4vw, 44px); max-width: 550px; }
+.tour-banner p { font-size: 14px; margin: 18px 0 30px; }
+.tour-banner a { display: inline-flex; gap: 7px; align-items: center; padding: 12px 20px; border-radius: 30px; background: #fff; color: #242d34; font-size: 12px; }
+.tour-destination-row { display: flex; justify-content: center; gap: 22px; padding: 20px 24px 35px; overflow-x: auto; }
+.tour-destination { position: relative; flex: 0 0 210px; height: 310px; isolation: isolate; overflow: hidden; border-radius: 12px; background: #34585c; color: #fff; }
+.tour-destination:nth-child(2) { transform: rotate(3deg); }
+.tour-destination:nth-child(4) { transform: rotate(-3deg); }
+.tour-destination > div { position: absolute; bottom: 20px; left: 17px; right: 17px; }
+.tour-destination h3 { font-size: 21px; font-weight: 650; }
+.tour-destination p { font-size: 12px; margin-top: 5px; }
+.tour-all-destinations { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; color: var(--tour-blue); font-size: 13px; min-height: 44px; }
+.tour-landing-shell .customer-header { position: relative; padding-inline: max(24px, calc((100% - 1120px) / 2)); box-shadow: none; border: 0; background: #fff; }
+.tour-landing-shell .customer-header > a > span:first-child { background: #07499c; }
+.tour-landing-shell .customer-header strong { color: #07499c; font-size: 24px; font-weight: 850; }
+.tour-landing-shell .customer-header small { display: none; }
+.tour-landing-shell .hm-nav-primary { background: #07499c; color: white; }
+@media (max-width: 980px) {
+  .tour-container { width: calc(100% - 48px); }
+  .tour-benefits { gap: 24px; padding-block: 60px; }
+  .tour-benefits h2 { font-size: 20px; }
+  .tour-escape { height: 340px; }
+  .tour-escape h3 { font-size: 38px; }
+  .tour-destination-row { justify-content: flex-start; }
+  .tour-attraction-image { height: 190px; }
+}
+@media (max-width: 640px) {
+  .tour-container { width: calc(100% - 36px); }
+  .tour-section { padding-block: 48px; }
+  .tour-search { grid-template-columns: 1fr 1fr; gap: 6px; padding: 12px; }
+  .tour-search-place { grid-column: 1 / -1; border-bottom: 1px solid #e9edf1; }
+  .tour-search label + label { border-left: 0; }
+  .tour-search input { font-size: 16px; }
+  .tour-search button { grid-column: 1 / -1; width: 100%; border-radius: 8px; display: flex; justify-content: center; gap: 10px; height: 44px; font-size: 14px; }
+  .tour-search button span { display: inline; }
+  .tour-benefits { grid-template-columns: 1fr; padding-block: 44px; gap: 35px; }
+  .tour-benefit-icon { margin-bottom: 14px; width: 58px; height: 58px; }
+  .tour-benefit-icon .icon { width: 32px; height: 32px; }
+  .tour-escape-grid { grid-template-columns: 1fr; gap: 18px; }
+  .tour-escape { height: 360px; }
+  .tour-feature-grid { grid-template-columns: 1fr; }
+  .tour-attraction-image { height: 250px; }
+  .tour-empty { grid-column: auto; min-height: 260px; padding: 24px; }
+  .tour-discover { min-height: 360px; }
+  .tour-banner { margin-top: 40px; min-height: 340px; }
+  .tour-banner > div { padding: 28px; }
+  .tour-banner p { line-height: 1.7; }
+  .tour-destination { flex-basis: 220px; }
+  .tour-landing-shell .customer-header { padding-inline: 18px; }
+  .tour-landing-shell .customer-header strong { font-size: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-home *, .tour-home *::after { transition: none !important; }
+}

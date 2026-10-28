@@ -1,0 +1,79 @@
+﻿.travel-hero { position: relative; isolation: isolate; min-height: 560px; display: grid; place-items: center; background: #345b7c; color: white; }
+.travel-hero-image, .travel-hero::after { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+.travel-hero-image { object-fit: cover; object-position: center 44%; }
+.travel-hero::after { content: ''; background: linear-gradient(180deg, #14355045, #0a25496b); z-index: -1; }
+.travel-hero-content { width: min(1100px, calc(100% - 48px)); padding: 74px 0 86px; text-align: center; }
+.travel-hero h1 { margin: 0; font-size: clamp(38px, 5vw, 72px); font-weight: 800; line-height: 1.13; letter-spacing: -.035em; color: white; }
+.travel-hero-content > p { margin: 20px auto 0; max-width: 730px; font-size: 16px; line-height: 1.7; color: white; }
+.travel-hero-panel { margin: 40px auto 0; max-width: 860px; }
+.travel-service-tabs { display: flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; max-width: 100%; margin: auto; padding: 10px 16px; background: white; color: #59616a; border-radius: 16px; box-shadow: 0 8px 30px #112c4015; }
+.travel-service-tabs a { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 10px 14px; font-size: 13px; border-radius: 28px; white-space: nowrap; transition: background .15s, color .15s; }
+.travel-service-tabs .icon { width: 16px; height: 16px; }
+.travel-service-tabs a[aria-current=page] { background: #242e36; color: white; }
+.travel-service-tabs a:not([aria-current]):hover { background: #edf3fc; color: #07499c; }
+.travel-service-tabs a:focus-visible { outline: 3px solid #478be0; outline-offset: 3px; }
+.travel-hero-panel-with-inputs .travel-service-tabs { border-radius: 18px 18px 0 0; box-shadow: none; }
+.travel-hero-inputs { color: #20272d; text-align: left; }
+.service-navigation-compact { border-bottom: 1px solid #dbe1dc; background: #fff; padding: 12px 16px 10px; }
+.travel-service-tabs-compact { width: fit-content; box-shadow: none; padding: 4px; border: 1px solid #e5e9e6; }
+.service-navigation-breadcrumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; max-width: 1200px; margin: 10px auto 0; color: #647184; font-size: 13px; }
+.service-navigation-breadcrumbs a { color: #0d7769; font-weight: 600; }
+.service-navigation-breadcrumbs a:hover { text-decoration: underline; }
+.service-navigation-breadcrumbs [aria-current=page] { color: #13231f; }
+@media (max-width: 640px) {
+ .travel-hero { min-height: 440px; }
+ .travel-hero-content { width: calc(100% - 32px); padding: 54px 0 64px; }
+ .travel-hero h1 { font-size: 38px; }
+ .travel-hero-content > p { font-size: 14px; max-width: 340px; }
+ .travel-hero-panel { margin-top: 30px; }
+ .travel-service-tabs { width: 100%; gap: 0; padding: 8px 4px; }
+ .travel-service-tabs a { flex: 1; min-width: 0; gap: 4px; padding: 9px 5px; font-size: 10px; }
+ .travel-service-tabs .icon { width: 13px; height: 13px; }
+ .service-navigation-compact { padding-inline: 8px; }
+ .travel-service-tabs-compact { width: 100%; }
+ .travel-service-tabs-compact a { font-size: 10px; }
+ .service-navigation-breadcrumbs { margin-top: 8px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .travel-service-tabs a { transition: none; } }
+
+/* Main service inputs share the landing page's compact white search panel. */
+.travel-hero { z-index: 1; }
+.hero-search-bar { display: grid; align-items: center; gap: 10px; padding: 15px; border: 0; border-radius: 13px; background: white; color: #20272d; box-shadow: 0 12px 40px #112c4020; text-align: left; }
+.hero-search-fields { display: grid; grid-template-columns: 1.5fr 1fr .7fr auto; align-items: center; gap: 10px; }
+.hero-search-fields > div, .hero-rental-search > div, .hero-destination-search > label { min-width: 0; padding: 8px 14px; }
+.hero-search-fields > div + div, .hero-rental-search > div + div { border-left: 1px solid #e9edf1; }
+.hero-search-bar label, .hero-search-bar label strong, .hero-search-bar .ride-location-field small { font-size: 11px; font-weight: 600; color: #20272d; }
+.hero-search-bar input { width: 100%; min-width: 0; min-height: 26px; padding: 0; background: transparent; border: 0; border-radius: 0; font-size: 13px; font-weight: 400; color: #58616b; box-shadow: none; }
+.hero-search-bar input:focus-visible { outline: 2px solid #478be0; outline-offset: 4px; }
+.hero-search-fields input[type=search] { padding-left: 28px; }
+.hero-search-fields input[type=search] + span, .hero-search-fields .pointer-events-none { left: 0; }
+.hero-search-bar button[type=submit] { width: auto; min-width: 52px; min-height: 52px; padding: 12px 18px; margin: 0; border: 0; border-radius: 28px; background: #07499c; color: white; font-size: 12px; white-space: nowrap; grid-column: auto; }
+.hero-search-bar button[type=submit]:hover { background: #063776; }
+.hero-search-bar button:disabled { opacity: .6; }
+.hero-tour-search { display: block; }
+.hero-tour-search details { margin-top: 8px; padding: 8px 14px 0; border-top: 1px solid #edf0f4; }
+.hero-tour-search details summary { min-height: 28px; }
+.hero-tour-search details select { margin-bottom: 8px; }
+.hero-rental-search { grid-template-columns: 1.15fr 1.15fr 1fr 1fr auto; }
+.travel-hero-rentals .travel-hero-panel { max-width: 1040px; }
+.hero-ride-search { grid-template-columns: 1fr 1fr auto; }
+.hero-ride-search .ride-location-field { position: relative; min-width: 0; padding: 8px 14px; border: 0; border-radius: 0; background: transparent; margin: 0; }
+.hero-ride-search .ride-location-field + .ride-location-field { border-left: 1px solid #e9edf1; }
+.hero-ride-search .ride-location-results { z-index: 20; text-align: left; max-height: 300px; overflow-y: auto; }
+.hero-ride-search .ride-location-results button { white-space: normal; }
+.hero-destination-search { grid-template-columns: 1fr auto; }
+.hero-destination-search label { display: grid; gap: 5px; }
+.hero-search-symbol { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #07499c; color: white; }
+@media (max-width: 760px) {
+ .hero-search-fields, .hero-rental-search { grid-template-columns: 1fr 1fr; }
+ .hero-search-fields > div:first-child { grid-column: 1 / -1; }
+ .hero-search-fields > div:last-child, .hero-rental-search > button[type=submit] { grid-column: 1 / -1; }
+ .hero-search-fields > div + div, .hero-rental-search > div + div { border-left: 0; }
+ .hero-search-fields > div:last-child { padding: 0; }
+ .hero-search-fields button[type=submit], .hero-rental-search > button[type=submit] { width: 100%; border-radius: 8px; min-height: 44px; }
+ .hero-ride-search { grid-template-columns: 1fr; }
+ .hero-ride-search .ride-location-field + .ride-location-field { border-left: 0; border-top: 1px solid #e9edf1; padding-top: 16px; }
+ .hero-ride-search button[type=submit] { width: 100%; border-radius: 8px; min-height: 44px; }
+ .hero-search-bar input { font-size: 16px; }
+ .hero-search-bar { padding: 12px; }
+}

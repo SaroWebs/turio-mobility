@@ -1,0 +1,198 @@
+import React from 'react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import AdminLayout from '@/layouts/AdminLayout';
+import LocationInput from '@/components/ui/LocationInput';
+import {
+    Button,
+    Divider,
+    Group,
+    Paper,
+    SimpleGrid,
+    Stack,
+    Switch,
+    TagsInput,
+    Text,
+    Textarea,
+    TextInput,
+} from '@mantine/core';
+import { ArrowLeft, Images, MapPin, Save, Star } from 'lucide-react';
+
+interface CreatePlaceProps {
+    title: string;
+}
+
+interface SearchResult {
+    id: string;
+    name: string;
+    address: string;
+    type: string;
+    lat?: number;
+    lng?: number;
+    city?: string;
+    state?: string;
+    country?: string;
+    rating?: number;
+    reviewCount?: number;
+}
+
+export default function Create({ title }: CreatePlaceProps) {
+    const { data, setData, post, processing, errors } = useForm({
+        name: '',
+        description: '',
+        short_description: '',
+        location: '',
+        city: '',
+        state: '',
+        country: 'India',
+        latitude: '',
+        longitude: '',
+        tags: [] as string[],
+        google_place_id: '',
+        google_rating: '',
+        google_review_count: '0',
+        is_active: true as boolean,
+        is_featured: false as boolean,
+    });
+
+    const handleLocationSelect = (location: SearchResult) => {
+        setData('name', location.name);
+        setData('location', location.address);
+        setData('google_place_id', location.id);
+        setData('latitude', location.lat?.toString() || '');
+        setData('longitude', location.lng?.toString() || '');
+        setData('city', location.city || '');
+        setData('state', location.state || '');
+        setData('country', location.country || 'India');
+        setData('google_rating', location.rating?.toString() || '');
+        setData('google_review_count', location.reviewCount?.toString() || '0');
+    };
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        post('/admin/places');
+    };
+
+    return (
+        <AdminLayout title={title}>
+            <Head title="Create Place" />
+
+            <Stack gap="lg" maw={1100} mx="auto">
+                <Group justify="space-between">
+                    <div>
+                        <Text size="xl" fw={800}>Create Place</Text>
+                        <Text size="sm" color="dimmed">Add a customer-facing destination with map, Google, and catalog metadata.</Text>
+                    </div>
+                    <Button component={Link} href="/admin/places" variant="subtle" color="gray" leftSection={<ArrowLeft size={16} />}>
+                        Back to Places
+                    </Button>
+                </Group>
+
+                <Paper p="xl" radius="md" withBorder>
+                    <form onSubmit={handleSubmit}>
+                        <Stack gap="xl">
+                            <Stack gap="md">
+                                <Text fw={700}>Place Details</Text>
+                                <LocationInput
+                                    label="Search Location"
+                                    placeholder="Search for a Google place or enter a name"
+                                    value={data.name}
+                                    onChange={(value) => setData('name', value)}
+                                    onLocationSelect={handleLocationSelect}
+                                    error={errors.name}
+                                    required
+                                />
+
+                                <Textarea
+                                    label="Description"
+                                    rows={4}
+                                    value={data.description}
+                                    onChange={(event) => setData('description', event.currentTarget.value)}
+                                    error={errors.description}
+                                />
+
+                                <TextInput
+                                    label="Short Description"
+                                    value={data.short_description}
+                                    onChange={(event) => setData('short_description', event.currentTarget.value)}
+                                    error={errors.short_description}
+                                />
+                            </Stack>
+
+                            <Divider />
+
+                            <Stack gap="md">
+                                <Group gap="sm">
+                                    <MapPin size={18} />
+                                    <Text fw={700}>Location Metadata</Text>
+                                </Group>
+                                <TextInput
+                                    label="Display Address"
+                                    value={data.location}
+                                    onChange={(event) => setData('location', event.currentTarget.value)}
+                                    error={errors.location}
+                                />
+                                <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
+                                    <TextInput label="City" value={data.city} onChange={(event) => setData('city', event.currentTarget.value)} error={errors.city} />
+                                    <TextInput label="State" value={data.state} onChange={(event) => setData('state', event.currentTarget.value)} error={errors.state} />
+                                    <TextInput label="Country" value={data.country} onChange={(event) => setData('country', event.currentTarget.value)} error={errors.country} />
+                                </SimpleGrid>
+                                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+                                    <TextInput type="number" step="any" label="Latitude" value={data.latitude} onChange={(event) => setData('latitude', event.currentTarget.value)} error={errors.latitude} />
+                                    <TextInput type="number" step="any" label="Longitude" value={data.longitude} onChange={(event) => setData('longitude', event.currentTarget.value)} error={errors.longitude} />
+                                </SimpleGrid>
+                            </Stack>
+
+                            <Divider />
+
+                            <Stack gap="md">
+                                <Group gap="sm">
+                                    <Star size={18} />
+                                    <Text fw={700}>Google And Catalog</Text>
+                                </Group>
+                                <TextInput
+                                    label="Google Place ID"
+                                    value={data.google_place_id}
+                                    onChange={(event) => setData('google_place_id', event.currentTarget.value)}
+                                    error={errors.google_place_id}
+                                />
+                                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+                                    <TextInput type="number" step="0.01" label="Google Rating Cache" value={data.google_rating} onChange={(event) => setData('google_rating', event.currentTarget.value)} error={errors.google_rating} />
+                                    <TextInput type="number" label="Google Review Count" value={data.google_review_count} onChange={(event) => setData('google_review_count', event.currentTarget.value)} error={errors.google_review_count} />
+                                </SimpleGrid>
+                                <TagsInput
+                                    label="Tags"
+                                    placeholder="Add tag"
+                                    value={data.tags}
+                                    onChange={(value) => setData('tags', value)}
+                                    error={errors.tags}
+                                    splitChars={[',']}
+                                />
+                                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+                                    <Switch label="Active in customer apps" checked={data.is_active} onChange={(event) => setData('is_active', event.currentTarget.checked)} />
+                                    <Switch label="Featured place" checked={data.is_featured} onChange={(event) => setData('is_featured', event.currentTarget.checked)} />
+                                </SimpleGrid>
+                            </Stack>
+
+                            <Divider />
+
+                            <Group justify="space-between">
+                                <Group gap="sm" color="dimmed">
+                                    <Images size={16} />
+                                    <Text size="sm" color="dimmed">Media can be added from the place detail page after creation.</Text>
+                                </Group>
+                                <Group>
+                                    <Button component={Link} href="/admin/places" variant="default">
+                                        Cancel
+                                    </Button>
+                                    <Button type="submit" leftSection={<Save size={16} />} loading={processing}>
+                                        Create Place
+                                    </Button>
+                                </Group>
+                            </Group>
+                        </Stack>
+                    </form>
+                </Paper>
+            </Stack>
+        </AdminLayout>
+    );
+}

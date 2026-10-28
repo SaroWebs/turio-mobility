@@ -1,0 +1,233 @@
+@import 'tailwindcss';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@theme {
+    /* Typography */
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* Primary Colors */
+    --color-primary-50: #E0F2F1;
+    --color-primary-100: #B2DFDB;
+    --color-primary-200: #80CBC4;
+    --color-primary-300: #4DB6AC;
+    --color-primary-400: #26A69A;
+    --color-primary-500: #00695C;
+    --color-primary-600: #004D40;
+    --color-primary-700: #003D33;
+    --color-primary-800: #002D26;
+    --color-primary-900: #001D19;
+
+    /* Secondary Colors */
+    --color-secondary-50: #FFF8E1;
+    --color-secondary-100: #FFECB3;
+    --color-secondary-200: #FFE082;
+    --color-secondary-300: #FFD54F;
+    --color-secondary-400: #FFCA28;
+    --color-secondary-500: #F57C00;
+    --color-secondary-600: #E65100;
+    --color-secondary-700: #BF360C;
+    --color-secondary-800: #A02800;
+    --color-secondary-900: #7F1C00;
+
+    /* Neutral Colors */
+    --color-neutral-50: #FAFAFA;
+    --color-neutral-100: #F5F5F5;
+    --color-neutral-200: #EEEEEE;
+    --color-neutral-300: #E0E0E0;
+    --color-neutral-400: #BDBDBD;
+    --color-neutral-500: #9E9E9E;
+    --color-neutral-600: #757575;
+    --color-neutral-700: #616161;
+    --color-neutral-800: #424242;
+    --color-neutral-900: #212121;
+
+    /* Semantic Colors */
+    --color-success: #4CAF50;
+    --color-warning: #FF9800;
+    --color-error: #F44336;
+    --color-info: #2196F3;
+
+    /* Legacy aliases for backward compatibility */
+    --color-primary: #00695C;
+    --color-secondary: #F57C00;
+    --color-accent: #90A4AE;
+    --color-background: #FFFFFF;
+    --color-text: #212121;
+    --color-primary-dark: #004D40;
+    --color-secondary-dark: #E65100;
+
+    /* Spacing Scale */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Animations */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 250ms ease-in-out;
+    --transition-slow: 350ms ease-in-out;
+}
+
+/* Modern CSS Reset and Base Styles */
+
+
+html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+}
+
+body {
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern Focus Styles */
+*:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-neutral-100);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-neutral-400);
+    border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neutral-500);
+}
+
+/* Animation Classes - Using Tailwind utilities */
+.animate-fade-in {
+    @apply animate-[fadeIn_300ms_ease-out];
+}
+
+.animate-slide-in {
+    @apply animate-[slideIn_300ms_ease-out];
+}
+
+.animate-scale-in {
+    @apply animate-[scaleIn_300ms_ease-out];
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Modern Card Styles - Using Tailwind utilities */
+.modern-card {
+    @apply bg-white rounded-xl shadow-md border border-neutral-200 transition-all duration-300;
+}
+
+.modern-card:hover {
+    @apply shadow-lg -translate-y-2;
+}
+
+/* Modern Button Styles - Using Tailwind utilities */
+.modern-btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium text-sm border-none cursor-pointer transition-all duration-300 no-underline;
+}
+
+.modern-btn-primary {
+    @apply bg-primary-500 text-white hover:bg-primary-600 hover:-translate-y-1 hover:shadow-md;
+}
+
+.modern-btn-secondary {
+    @apply bg-secondary-500 text-white hover:bg-secondary-600 hover:-translate-y-1 hover:shadow-md;
+}
+
+/* Modern Input Styles - More specific to avoid conflicts */
+.modern-input {
+    @apply w-full px-4 py-2 border-2 border-neutral-200 rounded-lg text-sm transition-all duration-300 bg-white;
+}
+
+.modern-input:focus {
+    @apply outline-none border-primary-500;
+    box-shadow: 0 0 0 3px rgb(0 105 92 / 0.1);
+}
+
+/* Gradient Backgrounds - Using Tailwind utilities */
+.gradient-primary {
+    @apply bg-gradient-to-br from-primary-500 to-primary-600;
+}
+
+.gradient-secondary {
+    @apply bg-gradient-to-br from-secondary-500 to-secondary-600;
+}
+
+/* Background Patterns */
+.bg-grid-pattern {
+    background-image:
+        linear-gradient(rgba(0, 105, 92, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 105, 92, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Responsive Design Utilities */
+.container-modern {
+    @apply w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
